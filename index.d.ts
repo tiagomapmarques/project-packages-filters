@@ -1,5 +1,6 @@
+/// <reference types="project-packages" />
 
 declare module 'project-packages-filters' {
-  function vendorPackages(packageJsonLocation?: string, literals?: string[], regex?: string[], useDefaults?: boolean): string[];
-  function helperPackages(packageJsonLocation?: string, literals?: string[], regex?: string[], useDefaults?: boolean): string[];
+  function vendorPackages(extraRules: ProjectModule, useDefaults?: boolean, packageJsonLocation?: string): string[];
+  function helperPackages(extraRules: ProjectModule, useDefaults?: boolean, packageJsonLocation?: string): string[];
 }
