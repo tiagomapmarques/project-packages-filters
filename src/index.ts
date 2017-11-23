@@ -1,10 +1,21 @@
 import { resolve } from 'path';
 import * as findRoot from 'find-root';
-import { getAllOfType } from 'project-packages';
+import { getAllOfType, ProjectModule } from 'project-packages';
 
+// tslint:disable-next-line:no-any
 declare function require(str: string): any;
 
-const testDependency = (literals: string[], regex: string[], useDefaults: boolean, positive: boolean) => (str: string) => {
+const emptyRules: ProjectModule = {
+  literals: [],
+  regex: [],
+};
+
+const testDependency = (
+  literals: string[],
+  regex: string[],
+  useDefaults: boolean,
+  positive: boolean,
+) => (str: string) => {
   let allLiterals = literals;
   let allRegex = regex;
 
@@ -27,12 +38,12 @@ const testDependency = (literals: string[], regex: string[], useDefaults: boolea
 const getPackageJsonData = (packageJsonLocation?: string) =>
   require(resolve(`${packageJsonLocation || findRoot('./')}/package.json`));
 
-export const vendorPackages = (packageJsonLocation: string = './', literals: string[] = [], regex: string[] = [], useDefaults: boolean = true) =>
+export const vendorPackages = (extraRules: ProjectModule = emptyRules, useDefaults: boolean = true, packageJsonLocation: string = './') =>
   Object.keys(getPackageJsonData(packageJsonLocation).dependencies).filter(
-    testDependency(literals, regex, useDefaults, false)
+    testDependency(extraRules.literals || [], extraRules.regex || [], useDefaults, false),
   );
 
-export const helperPackages = (packageJsonLocation: string = './', literals: string[] = [], regex: string[] = [], useDefaults: boolean = true) =>
+export const helperPackages = (extraRules: ProjectModule = emptyRules, useDefaults: boolean = true, packageJsonLocation: string = './') =>
   Object.keys(getPackageJsonData(packageJsonLocation).dependencies).filter(
-    testDependency(literals, regex, useDefaults, true)
+    testDependency(extraRules.literals || [], extraRules.regex || [], useDefaults, true),
   );
