@@ -65,7 +65,6 @@
       "never"
     ],
     "type-literal-delimiter": true,
-    "typeof-compare": true,
     "whitespace": [
       true,
       "check-branch",
