@@ -21,10 +21,10 @@
     "project-packages": "~1.1"
   },
   "devDependencies": {
-    "@types/jest": "~21.1",
-    "jest": "~21.2",
+    "@types/jest": "~22.1",
+    "jest": "~22.1",
     "rimraf": "~2.6",
-    "ts-jest": "~21.2",
+    "ts-jest": "~22.0",
     "tslint": "~5.9",
     "tslint-config-airbnb-base": "~0.1",
     "typescript": "~2.6"
